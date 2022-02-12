@@ -2,4 +2,5 @@
 .DS_Store
 .ipynb_checkpoints
 *__pycache__*
-*dist/*
+hw_3/calcalc/dist
+hw_3/calcalc/calcalc_toy.egg-info
