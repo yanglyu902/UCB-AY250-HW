@@ -17,7 +17,10 @@ def _get_input_args():
         "-w", action="store", dest="for_wolfram", type=str,
         help="Enter a complex question for WolframAlpha"
     )
-    parser.add_argument("--version", action="version", version="%(prog)s 1.5")
+    parser.add_argument(
+        "--float", action="store_true", dest="return_float",
+        help="Return Wolfram results as float instead of text?"
+    )
     args = parser.parse_args()
 
     if args.simple_expression is None and args.for_wolfram is None:
@@ -36,8 +39,8 @@ def calculate(s, local=True, return_float=True):
     If calculate with Wolfram, set local=False.
 
     When using Wolfram, if want to display computation results
-    as string, then set return_float=False.
-    Otherwise, set return_float=True for further computation.
+    as string, e.g. "1.4×10^2 kg (kilograms)", then set return_float=False.
+    Otherwise, set return_float=True to convert it to float.
     """
     if local:
         try:
@@ -58,7 +61,7 @@ def _calculate_remotely(s, return_float=True):
     url = _use_wolfram(s)
     answer_raw = _get_result_from_wolfram(url)
     answer = _convert_result_from_wolfram(answer_raw,
-                                         return_float=return_float)
+                                          return_float=return_float)
     return answer
 
 
@@ -124,7 +127,7 @@ def test_4():  # test WolframAlpha, string output
 
 
 def test_5():  # test WolframAlpha result conversion
-    assert _convert_result_from_wolfram('123.5') == 123.5
+    assert _convert_result_from_wolfram('-123.5') == -123.5
     assert _convert_result_from_wolfram('1.3×10^5') == 1.3*10**5
     assert _convert_result_from_wolfram('1') == 1
 
@@ -137,4 +140,5 @@ if __name__ == "__main__":
         print(calculate(args.simple_expression))
 
     if args.for_wolfram:
-        print(calculate(args.for_wolfram, local=False))
+        print(calculate(args.for_wolfram, local=False,
+                        return_float=args.return_float))
