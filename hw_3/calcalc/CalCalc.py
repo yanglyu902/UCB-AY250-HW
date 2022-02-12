@@ -28,12 +28,23 @@ def get_input_args():
 
 
 def calculate(s, local=True, return_float=True):
+    """
+    This function calculates the expression either
+    locally or on WolframAlpha.
+
+    If calculate locally, set local=True.
+    If calculate with Wolfram, set local=False.
+
+    When using Wolfram, if want to display computation results
+    as string, then set return_float=False.
+    Otherwise, set return_float=True for further computation.
+    """
     if local:
         try:
             return calculate_locally(s)
         except:
             print('NOTE: Not a valid numerical expression!!! \n'
-            'Please switch to WolframAlpha using local=False! \n')
+                  'Please switch to WolframAlpha using local=False! \n')
     else:
         return calculate_remotely(s, return_float=return_float)
 
@@ -43,7 +54,7 @@ def calculate_locally(s):
     return answer
 
 
-def calculate_remotely(s, return_float):
+def calculate_remotely(s, return_float=True):
     url = use_wolfram(s)
     answer_raw = get_result_from_wolfram(url)
     answer = convert_result_from_wolfram(answer_raw,
@@ -72,7 +83,7 @@ def get_result_from_wolfram(url):
     return None
 
 
-def convert_result_from_wolfram(s, return_float):
+def convert_result_from_wolfram(s, return_float=True):
     if return_float is False:
         return s
     # usually in form Ax10^B
@@ -86,22 +97,37 @@ def convert_result_from_wolfram(s, return_float):
         return float(s)
 
 
-# test
-def test_1(): # test local
+"""
+Writing my tests...
+"""
+
+
+def test_1():  # test local
     assert abs(2 * np.sin(3 / 5) + np.log(7)
                - calculate("2*sin(3/5)+log(7)")) < 0.001
 
-def test_2(): # test WolframAlpha
-    assert abs(7.3459e+23 - calculate('mass of the moon in kg', \
+
+def test_2():  # test WolframAlpha
+    assert abs(7.3459e+23 - calculate('mass of the moon in kg',
                return_float=True, local=False) * 10) < 0.001
 
-def test_3(): # simple expression, but use WolframAlpha
-    assert abs(6.0 - calculate('2*3', \
+
+def test_3():  # simple expression, but use WolframAlpha
+    assert abs(6.0 - calculate('2*3',
                return_float=True, local=False)) < 0.001
 
-def test_4(): # test WolframAlpha, string output
-    assert calculate('mass of the moon in kg',  return_float=False, local=False)\
+
+def test_4():  # test WolframAlpha, string output
+    assert calculate('mass of the moon in kg',
+                     return_float=False, local=False)\
                      == '7.3459×10^22 kg (kilograms)'
+
+
+def test_5():  # test WolframAlpha result conversion
+    assert convert_result_from_wolfram('123.5') == 123.5
+    assert convert_result_from_wolfram('1.3×10^5') == 1.3*10**5
+    assert convert_result_from_wolfram('1') == 1
+
 
 if __name__ == "__main__":
 
