@@ -1,4 +1,4 @@
-### calcalc
+# calcalc
 This is a calculator for evaluating numerical expressions (in string format) both locally and on WolframAlpha. 
 
 ### usage 
