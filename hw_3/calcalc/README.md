@@ -1,7 +1,9 @@
 # calcalc
 This is a calculator for evaluating numerical expressions (in string format) both locally and on WolframAlpha. 
 
-### usage 
+To install using pip: `pip install calcalc-toy`
+
+### Usage 
 Example usage from the command line: 
 
 `python CalCalc.py -s '2*sin(3)'`
