@@ -6,7 +6,7 @@ from urllib.parse import quote
 import json
 
 
-def get_input_args():
+def _get_input_args():
     parser = argparse.ArgumentParser()
 
     parser.add_argument(
@@ -17,7 +17,7 @@ def get_input_args():
         "-w", action="store", dest="for_wolfram", type=str,
         help="Enter a complex question for WolframAlpha"
     )
-    parser.add_argument("--version", action="version", version="%(prog)s 1.1")
+    parser.add_argument("--version", action="version", version="%(prog)s 1.5")
     args = parser.parse_args()
 
     if args.simple_expression is None and args.for_wolfram is None:
@@ -41,28 +41,28 @@ def calculate(s, local=True, return_float=True):
     """
     if local:
         try:
-            return calculate_locally(s)
+            return _calculate_locally(s)
         except:
             print('NOTE: Not a valid numerical expression!!! \n'
                   'Please switch to WolframAlpha using local=False! \n')
     else:
-        return calculate_remotely(s, return_float=return_float)
+        return _calculate_remotely(s, return_float=return_float)
 
 
-def calculate_locally(s):
+def _calculate_locally(s):
     answer = float(ne.evaluate(s))
     return answer
 
 
-def calculate_remotely(s, return_float=True):
-    url = use_wolfram(s)
-    answer_raw = get_result_from_wolfram(url)
-    answer = convert_result_from_wolfram(answer_raw,
+def _calculate_remotely(s, return_float=True):
+    url = _use_wolfram(s)
+    answer_raw = _get_result_from_wolfram(url)
+    answer = _convert_result_from_wolfram(answer_raw,
                                          return_float=return_float)
     return answer
 
 
-def use_wolfram(s):
+def _use_wolfram(s):
     s = quote(s)
     SERVICE = 'http://api.wolframalpha.com/v2/query?appid='
     ID = '5TG54Y-K3JUTT44Y8'
@@ -71,7 +71,7 @@ def use_wolfram(s):
     return url
 
 
-def get_result_from_wolfram(url):
+def _get_result_from_wolfram(url):
     data = json.load(urlopen(url))
     pods = data['queryresult']['pods']
 
@@ -83,7 +83,7 @@ def get_result_from_wolfram(url):
     return None
 
 
-def convert_result_from_wolfram(s, return_float=True):
+def _convert_result_from_wolfram(s, return_float=True):
     if return_float is False:
         return s
     # usually in form Ax10^B
@@ -124,14 +124,14 @@ def test_4():  # test WolframAlpha, string output
 
 
 def test_5():  # test WolframAlpha result conversion
-    assert convert_result_from_wolfram('123.5') == 123.5
-    assert convert_result_from_wolfram('1.3×10^5') == 1.3*10**5
-    assert convert_result_from_wolfram('1') == 1
+    assert _convert_result_from_wolfram('123.5') == 123.5
+    assert _convert_result_from_wolfram('1.3×10^5') == 1.3*10**5
+    assert _convert_result_from_wolfram('1') == 1
 
 
 if __name__ == "__main__":
 
-    args = get_input_args()
+    args = _get_input_args()
 
     if args.simple_expression:
         print(calculate(args.simple_expression))
