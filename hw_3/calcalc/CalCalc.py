@@ -119,7 +119,7 @@ def test_3():  # simple expression, but use WolframAlpha
 
 def test_4():  # test WolframAlpha, string output
     assert calculate('mass of the moon in kg',
-                     return_float=False, local=False)\
+                     return_float=False, local=False) \
                      == '7.3459×10^22 kg (kilograms)'
 
 
