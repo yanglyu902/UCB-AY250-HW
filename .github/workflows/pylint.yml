@@ -20,4 +20,4 @@ jobs:
         pip install pylint
     - name: Analysing the code with pylint
       run: |
-        pylint $(git ls-files 'hw_3/calcalc/*.py')
+        flake8 $(git ls-files 'hw_3/calcalc/*.py')
