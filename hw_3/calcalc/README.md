@@ -4,6 +4,10 @@ This is a calculator for evaluating numerical expressions (in string format) bot
 To install using pip: `pip install calcalc-toy`
 
 ### Usage 
+
+After install, run
+`from calcalc.CalCalc import calculate`
+
 Example usage from the command line: 
 
 `python CalCalc.py -s '2*sin(3)'`
