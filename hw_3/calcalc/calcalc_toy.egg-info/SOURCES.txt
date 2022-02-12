@@ -1,6 +1,6 @@
 LICENSE
 MANIFEST.in
-README.txt
+README.md
 requirements.txt
 setup.cfg
 setup.py

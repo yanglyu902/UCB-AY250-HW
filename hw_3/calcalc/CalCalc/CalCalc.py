@@ -4,6 +4,7 @@ import numpy as np
 from urllib.request import urlopen
 from urllib.parse import quote
 import json
+import sys
 
 
 def _get_input_args():
@@ -62,6 +63,11 @@ def _calculate_remotely(s, return_float=True):
     answer_raw = _get_result_from_wolfram(url)
     answer = _convert_result_from_wolfram(answer_raw,
                                           return_float=return_float)
+
+    if answer is None:
+        sys.exit('NOTE: Invalid question for'
+                 'Wolfram to return a single number!')
+
     return answer
 
 
@@ -75,29 +81,35 @@ def _use_wolfram(s):
 
 
 def _get_result_from_wolfram(url):
-    data = json.load(urlopen(url))
-    pods = data['queryresult']['pods']
 
-    for pod in pods:
-        if pod['id'] == 'Result':
-            answer = pod['subpods'][0]['plaintext']
-            return answer
-    print('NOTE: Invalid question for Wolfram to return a single number!!! \n')
-    return None
+    try:
+        data = json.load(urlopen(url))
+        pods = data['queryresult']['pods']
+        for pod in pods:
+            if pod['id'] == 'Result':
+                answer = pod['subpods'][0]['plaintext']
+                return answer
+    except:
+        sys.exit('NOTE: Invalid question for'
+                 'Wolfram to return a single number!')
 
 
 def _convert_result_from_wolfram(s, return_float=True):
     if return_float is False:
         return s
     # usually in form Ax10^B
-    s = s.split()[0]
-    if '×' in s or '^' in s:
-        num = float(s.split('×')[0])
-        expo = float(s.split('^')[-1])
-        out = num * 10**expo
-        return out
-    else:
-        return float(s)
+    try:
+        s = s.split()[0]
+        if '×' in s or '^' in s:
+            num = float(s.split('×')[0])
+            expo = float(s.split('^')[-1])
+            out = num * 10**expo
+            return out
+        else:
+            return float(s)
+    except:
+        sys.exit('NOTE: Invalid question for'
+                 'Wolfram to return a single number!')
 
 
 """
