@@ -17,7 +17,7 @@ def get_input_args():
         "-w", action="store", dest="for_wolfram", type=str,
         help="Enter a complex question for WolframAlpha"
     )
-    parser.add_argument("--version", action="version", version="%(prog)s 1.0")
+    parser.add_argument("--version", action="version", version="%(prog)s 1.1")
     args = parser.parse_args()
 
     if args.simple_expression is None and args.for_wolfram is None:
