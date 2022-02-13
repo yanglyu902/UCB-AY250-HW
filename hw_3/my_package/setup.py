@@ -5,7 +5,7 @@ this_directory = Path(__file__).parent
 long_description = (this_directory / "README.md").read_text()
 
 setup(name='calcalc-toy',
-      version='1.7',
+      version='1.8',
       description='A calculator that evaluates string expressions ' +
                   'both locally or using WolframAlpha.',
       long_description=long_description,
@@ -14,5 +14,5 @@ setup(name='calcalc-toy',
       author_email='yanglyu902@gmail.com',
       python_requires='>=3',
       license='MIT License',
-      packages=['tester1', 'calcalc', 'calcalc.tester2'],
+      packages=['calcalc', 'tester1', 'calcalc.tester2'],
       )
