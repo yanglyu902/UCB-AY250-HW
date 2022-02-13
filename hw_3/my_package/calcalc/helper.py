@@ -17,7 +17,7 @@ def calculate_remotely(s, return_float=True):
                                           return_float=return_float)
 
     if answer is None:
-        sys.exit('NOTE: Invalid question for'
+        sys.exit('NOTE: Invalid question for '
                  'Wolfram to return a single number!')
 
     return answer
@@ -42,7 +42,7 @@ def _get_result_from_wolfram(url):
                 answer = pod['subpods'][0]['plaintext']
                 return answer
     except:
-        sys.exit('NOTE: Invalid question for'
+        sys.exit('NOTE: Invalid question for '
                  'Wolfram to return a single number!')
 
 
@@ -60,5 +60,5 @@ def _convert_result_from_wolfram(s, return_float=True):
         else:
             return float(s)
     except:
-        sys.exit('NOTE: Invalid question for'
+        sys.exit('NOTE: Invalid question for '
                  'Wolfram to return a single number!')
