@@ -1,5 +1,7 @@
 # calcalc: a toy calculator
 
+[![PyPi version](https://badgen.net/pypi/v/calcalc-toy/)](https://pypi.com/project/calcalc-toy)
+
 This is a calculator for evaluating string expressions (e.g. '2*sin(3/5)', 'mass of the sun in kg'). The statement can be computed either locally or through querying WolframAlpha. 
 
 To install using pip: `pip install calcalc-toy`. To install via GitHub: https://github.com/yanglyu902/UCB-AY250-HW/tree/main/hw_3/my_package.
