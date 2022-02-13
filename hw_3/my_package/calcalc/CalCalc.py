@@ -1,8 +1,7 @@
 import argparse
 import numpy as np
-from helper import calculate_locally, calculate_remotely,\
+from calcalc.helper import calculate_locally, calculate_remotely,\
                    _convert_result_from_wolfram
-
 
 def _get_input_args():
     parser = argparse.ArgumentParser()

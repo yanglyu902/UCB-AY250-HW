@@ -14,5 +14,5 @@ setup(name='calcalc-toy',
       author_email='yanglyu902@gmail.com',
       python_requires='>=3',
       license='MIT License',
-      packages=['calcalc'],
+      packages=['tester1', 'calcalc', 'calcalc.tester2'],
       )
